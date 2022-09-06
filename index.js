@@ -11,4 +11,4 @@ app.use(cors());
 app.use("/api/user", User_routes);
 app.use("/api/profile", Profile_routes);
 
-export default app;
+export { app};
