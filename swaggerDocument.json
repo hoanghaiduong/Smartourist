@@ -142,7 +142,7 @@
                 }
             }
         },
-        "/api/user/getUserById/{uid}": {
+        "/api/user/getUser": {
             "get": {
                 "tags": [
                     "User"
@@ -156,7 +156,7 @@
                 "parameters": [
                     {
                         "name": "uid",
-                        "in": "path",
+                        "in": "query",
                         "description": "Mã uid của user",
                         "required": true,
                         "type": "string",
@@ -176,56 +176,28 @@
                 }
             }
         },
-        "/api/user/getUserRegCaledar": {
-            "get": {
-                "tags": [
-                    "User_Calender"
-                ],
-                "summary": "Xem lịch đã đăng kí",
-                "description": "Để xem được lịch đã đăng kí phải đăng nhập và phải đăng kí lịch đó.Đăng kí lịch tại api Register Calendar",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/user_reg_calen_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/user_reg_calen_res"
-                        }
-                    },
-                    "404": {
-                        "description": "NOT_FOUND"
-                    }
-                }
+        "/api/auth/forgot-password":{
+            "post":{
+                "tags":["Auth"],
+                "summary":"Quên Mật Khẩu"
             }
         },
-        "/api/user/get_Calender_available": {
-            "get": {
-                "tags": [
-                    "User_Calender"
-                ],
-                "summary": "Xem lịch còn trống",
-                "description": "Người dùng có thể xem được thông tin lịch còn trống",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/Calendar_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/Calendar_res"
-                        }
-                    },
-                    "404": {
-                        "description": "NOT_FOUND"
-                    }
-                }
+        "/api/auth/sendEmailResetPassword":{
+            "post":{
+                "tags":["Auth"],
+                "summary":"Gửi mail quên mật khẩu"
+            }
+        },
+        "/api/auth/checkObbCodeResetPassword":{
+            "post":{
+                "tags":["Auth"],
+                "summary":"Kiểm tra mã OBB Code Reset Password"
+            }
+        },
+        "/api/auth/verifyResetPassword":{
+            "post":{
+                "tags":["Auth"],
+                "summary":"Xác nhận reset password"
             }
         },
         "/api/user/upload-avatar-user": {
@@ -269,33 +241,8 @@
                 }
             }
         },
-        "/api/reg_calender/get_reg_calender": {
-            "get": {
-                "tags": [
-                    "Admin_Calender"
-                ],
-                "summary": "Xem lịch người dùng đã đăng kí",
-                "description": "Để xem được lịch đã đăng kí phải đăng nhập với quyền admin",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        }
-                    },
-                    "404": {
-                        "description": "NOT_FOUND"
-                    }
-                }
-            }
-        },
-        "/api/auth/firebase/setAdmin/{uid}": {
+   
+        "/api/admin/setAdmin": {
             "post": {
                 "tags": [
                     "Admin"
@@ -328,7 +275,7 @@
                 }
             }
         },
-        "/api/auth/firebase/revokeAdmin/{uid}": {
+        "/api/admin/revokeAdmin/{uid}": {
             "post": {
                 "tags": [
                     "Admin"
@@ -361,591 +308,9 @@
                 }
             }
         },
-        "/api/reg_calender/get_reg_calender_active": {
-            "get": {
-                "tags": [
-                    "Admin_Calender"
-                ],
-                "summary": "Xem lịch người dùng đã đăng kí và đã được duyệt",
-                "description": "Để xem được lịch đã đăng kí phải đăng nhập với quyền admin",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        }
-                    },
-                    "404": {
-                        "description": "NOT_FOUND"
-                    }
-                }
-            }
-        },
-        "/api/reg_calender/create/{calender_id}": {
-            "post": {
-                "tags": [
-                    "User_Calender"
-                ],
-                "summary": "Đăng kí lịch",
-                "description": "Để đăng kí lịch phải đăng nhập.",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "calender_id",
-                        "in": "path",
-                        "description": "Mã lịch",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid UID supplied"
-                    },
-                    "404": {
-                        "description": "USER NOT FOUND"
-                    }
-                }
-            }
-        },
-        "/api/reg_calender/accpet_reg_ralender/{id}": {
-            "post": {
-                "tags": [
-                    "Admin_Calender"
-                ],
-                "summary": "Admin Duyệt lịch ",
-                "description": "Để duyệt lịch phải đăng nhập với quyền admin",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Mã lịch",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid UID supplied"
-                    },
-                    "404": {
-                        "description": "USER NOT FOUND"
-                    }
-                }
-            }
-        },
-        "/api/reg_calender/change_status/{id}": {
-            "put": {
-                "tags": [
-                    "Admin_Calender"
-                ],
-                "summary": "Admin thay đổi trạng thái cho của user đăng kí lịch",
-                "description": "status_active = 1 => Đang chờ xử lí, status_active = 2 => Đã được duyệt, status_active = 3 => Từ chối, status_active = 4 => Đã hủy",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Mã lịch",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    },
-                    {
-                        "name": "status_active",
-                        "in": "body",
-                        "description": "Trạng thái",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "status_active": {
-                                    "type": "integer",
-                                    "format": "int64"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid UID supplied"
-                    },
-                    "404": {
-                        "description": "USER NOT FOUND"
-                    }
-                }
-            }
-        },
-        "/api/reg_calender/change_status_user/{id}": {
-            "put": {
-                "tags": [
-                    "User_Calender"
-                ],
-                "summary": "User thay đổi trạng thái đăng kí lịch",
-                "description": "status_active = 1 => Đang chờ xử lí, status_active = 2 => Đã được duyệt, status_active = 3 => Từ chối, status_active = 4 => Đã hủy",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Mã lịch",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    },
-                    {
-                        "name": "status_active",
-                        "in": "body",
-                        "description": "Trạng thái",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "status_active": {
-                                    "type": "integer",
-                                    "format": "int64"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid UID supplied"
-                    },
-                    "404": {
-                        "description": "USER NOT FOUND"
-                    }
-                }
-            }
-        },
-        "/api/reg_calender/update/{id}": {
-            "put": {
-                "tags": [
-                    "User_Calender"
-                ],
-                "summary": "User thay đổi thông tin đăng kí lịch",
-                "description": "User có thể chỉnh sửa thông tin mà đã đăng kí khi chưa được duyệt",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Mã lịch",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    },
-                    {
-                        "name": "reg_calender",
-                        "in": "body",
-                        "description": "Thông tin lịch",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "full_name": {
-                                    "type": "string",
-                                    "format": "string"
-                                },
-                                "soLuongTv": {
-                                    "type": "integer",
-                                    "format": "int64"
-                                },
-                                "time_Reg": {
-                                    "type": "time",
-                                    "format": "time"
-                                },
-                                "day_Reg": {
-                                    "type": "date",
-                                    "format": "date"
-                                },
-                                "description": {
-                                    "type": "string",
-                                    "format": "string"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid UID supplied"
-                    }
-                }
-            }
-        },
-        "/api/reg_calender/delete_reg_calender/{id}": {
-            "delete": {
-                "tags": [
-                    "Admin_Calender"
-                ],
-                "summary": "Admin yêu cầu đăng kí của user khỏi cơ sở dữ liệu",
-                "description": " Admin có thể xóa đăng kí của user khỏi cơ sở dữ liệu",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Mã lịch",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid UID supplied"
-                    }
-                }
-            }
-        },
-        "/api/reg_calender/delete_reg_calender_user/{id}": {
-            "delete": {
-                "tags": [
-                    "User_Calender"
-                ],
-                "summary": "User yêu cầu đăng kí của user khỏi cơ sở dữ liệu",
-                "description": " User có thể xóa đăng kí của user khỏi cơ sở dữ liệu",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Mã đăng kí",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/reg_calender_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid UID supplied"
-                    }
-                }
-            }
-        },
-        "/api/calender/get": {
-            "get": {
-                "tags": [
-                    "Calendar"
-                ],
-                "summary": "Lấy ra tất cả lịch",
-                "description": "Tất cả lịch của phòng lab do admin tạo ra",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/Calendar_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/Calendar_res"
-                        }
-                    },
-                    "404": {
-                        "description": "NOT_FOUND"
-                    }
-                }
-            }
-        },
-        "/api/calender/get/{id}": {
-            "get": {
-                "tags": [
-                    "Calendar"
-                ],
-                "summary": "Lấy ra 1 lịch cụ thể theo id",
-                "description": "Để lấy ra lịch theo id cần phải đăng nhập với quyền admin",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Mã id của lịch",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/Calendar_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/Calendar_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied"
-                    },
-                    "404": {
-                        "description": "NOT_FOUND"
-                    }
-                }
-            }
-        },
-        "/api/calender/get_Calender_by_month": {
-            "get": {
-                "tags": [
-                    "Calendar"
-                ],
-                "summary": "Lấy ra tất cả lịch của 1 tháng",
-                "description": "Tất cả lịch của phòng lab do admin tạo ra",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "month",
-                        "in": "query",
-                        "description": "Tháng",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    {
-                        "name": "year",
-                        "in": "query",
-                        "description": "Năm",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/Calendar_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/Calendar_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied"
-                    },
-                    "404": {
-                        "description": "NOT_FOUND"
-                    }
-                }
-            }
-        },
-        "/api/calender/create": {
-            "post": {
-                "tags": [
-                    "Calendar"
-                ],
-                "summary": "Admin Tạo 1 lịch",
-                "description": "Để tạo lịch cần phải đăng nhập với quyền admin",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Thông tin lịch",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/Calendar_req"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/Calendar_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/Calendar_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied"
-                    },
-                    "404": {
-                        "description": "NOT_FOUND"
-                    }
-                }
-            }
-        },
-        "/api/calender/update/{id}": {
-            "put": {
-                "tags": [
-                    "Calendar"
-                ],
-                "summary": "Admin Cập nhật 1 lịch",
-                "description": "Để chỉnh sửa lịch cần phải đăng nhập với quyền admin",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Mã id của lịch",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Thông tin lịch",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/Calendar_req"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully",
-                        "schema": {
-                            "$ref": "#/definitions/Calendar_res"
-                        },
-                        "examples": {
-                            "$ref": "#/definitions/Calendar_res"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied"
-                    },
-                    "404": {
-                        "description": "NOT_FOUND"
-                    }
-                }
-            }
-        },
-        "/api/calender/delete/{id}": {
-            "delete": {
-                "tags": [
-                    "Calendar"
-                ],
-                "summary": "Admin Xóa 1 lịch",
-                "description": "Để xóa lịch cần phải đăng nhập với quyền admin",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Mã id của lịch",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Xóa lịch thành công ||  Successfully"
-                    },
-                    "400": {
-                        "description": "Invalid ID supplied"
-                    },
-                    "404": {
-                        "description": "NOT_FOUND"
-                    }
-                }
-            }
-        },
-        "/api/user/edit/{uid}": {
+     
+      
+        "/api/user/updateUser": {
             "put": {
                 "tags": [
                     "User"
@@ -959,7 +324,7 @@
                 "parameters": [
                     {
                         "name": "uid",
-                        "in": "path",
+                        "in": "query",
                         "description": "Mã uid của user",
                         "required": true,
                         "type": "string",
@@ -994,7 +359,7 @@
                 }
             }
         },
-        "/api/user/delete/{uid}": {
+        "/api/user/deleteUser": {
             "delete": {
                 "tags": [
                     "User"
@@ -1008,7 +373,7 @@
                 "parameters": [
                     {
                         "name": "uid",
-                        "in": "path",
+                        "in": "query",
                         "description": "Mã uid của user",
                         "required": true,
                         "type": "string",
@@ -1028,7 +393,7 @@
                 }
             }
         },
-        "/api/auth/firebase/signup": {
+        "/api/auth/signup": {
             "post": {
                 "tags": [
                     "Account"
@@ -1069,7 +434,7 @@
                 }
             }
         },
-        "/api/auth/firebase/signin": {
+        "/api/auth/signin": {
             "post": {
                 "tags": [
                     "Account"

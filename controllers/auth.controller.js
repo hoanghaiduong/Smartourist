@@ -118,4 +118,5 @@ const logout = async (req, res) => {
     });
   }
 };
+
 export { signupWithEmailAndPassword, signinWithEmailAndPassword,logout };
