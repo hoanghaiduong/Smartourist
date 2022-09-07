@@ -5,7 +5,7 @@ import User_routes from "./routes/User_routes.js";
 import Profile_routes from "./routes/Profile_routes.js";
 import * as swagger from "swagger-ui-express";
 import swaggerDocument from "./swaggerDocument.json" assert { type: "json" };
-console.log("Test");
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
