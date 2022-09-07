@@ -1,5 +1,5 @@
 import { defaultAppConfig, defaultAuth, defaultMessaging } from "../config/firebase-admin.js";
-import User from "../models/User.js";
+import {User} from "../models/User.js";
 import axios from "axios";
 const signupWithEmailAndPassword = async (req, res) => {
   const { email, password } = req.body;
