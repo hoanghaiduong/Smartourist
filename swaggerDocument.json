@@ -117,7 +117,7 @@
                 }
             }
         },
-        "/api/user/getAllUser": {
+        "/api/user/getAllUsers": {
             "get": {
                 "tags": [
                     "User"
@@ -241,7 +241,7 @@
                 }
             }
         },
-   
+        
         "/api/admin/setAdmin": {
             "post": {
                 "tags": [
@@ -255,7 +255,7 @@
                 "parameters": [
                     {
                         "name": "uid",
-                        "in": "path",
+                        "in": "query",
                         "description": "Mã uid của user",
                         "required": true,
                         "type": "string",
@@ -275,7 +275,7 @@
                 }
             }
         },
-        "/api/admin/revokeAdmin/{uid}": {
+        "/api/admin/removeAdmin": {
             "post": {
                 "tags": [
                     "Admin"
@@ -288,7 +288,40 @@
                 "parameters": [
                     {
                         "name": "uid",
-                        "in": "path",
+                        "in": "query",
+                        "description": "Mã uid của user",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "USER NOT FOUND"
+                    }
+                }
+            }
+        },
+        "/api/admin/revokeToken": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Revoke Token ",
+                "description": "Thu hồi mã token của user",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "query",
                         "description": "Mã uid của user",
                         "required": true,
                         "type": "string",

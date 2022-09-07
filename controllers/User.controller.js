@@ -3,8 +3,8 @@ import { Profile, ProfileSchema } from "../models/Profile.js";
 import { User } from "../models/User.js";
 
 const createUser = async (req, res) => {
-  const {uid}= req.query;
-  const {  email, phoneNumber, photoURL, displayName } = req.body;
+  const { uid } = req.query;
+  const { email, phoneNumber, photoURL, displayName } = req.body;
 
   const user = new User({ uid, email, phoneNumber, photoURL, displayName });
   const findUser = await User.findOne({ uid });
@@ -26,9 +26,9 @@ const createUser = async (req, res) => {
         "Something went wrong while creating user || user already exists || check duplicate values",
       error: error.message,
     });
-    
+
   }
- 
+
 };
 const getUser = async (req, res) => {
   try {
@@ -121,57 +121,40 @@ const updateUser = async (req, res) => {
   }
 };
 const deleteUser = async (req, res) => {
-  const { uid } = req.query;
+  const isProfile = req.profile.profile;
+  const _idUser = req._idUser;
+  const uid = req.user.uid;
   try {
+    // console.log(uid);
+    // console.log(req.profile);
+    // console.log(req.user);
+    // console.log(req._idUser);
 
-    const user = await User.findOne({ uid });
-
-    if (user) {
-      const _idUser = user._id.toString();
-      console.log(_idUser);
-      await Profile.findOneAndDelete(_idUser).then(async (result) => {
-        if (!result) {
-          res.status(404).json({
-            message: "Profile not found",
-          });
-        }
-        const deleteUser = await User.findByIdAndDelete(_idUser);
-        if (deleteUser) {
-          defaultAuth
-            .deleteUser(uid)
-            .then(async () => {
-              res.status(200).json({
-                message: "User deleted successfully to firebase and mongodb",
-                user: deleteUser,
-              });
-
-            })
-            .catch((err) => {
-              res.status(500).json({
-                message: "Error deleting to firebase",
-                error: err,
-              });
+    await User.findByIdAndDelete(_idUser).then(() => {
+      defaultAuth
+        .deleteUser(uid)
+        .then(async () => {
+          if (isProfile) {
+            await Profile.findOneAndDelete(_idUser).then(() => {
+              res.status(200).send({
+                message: "User deleted and Profile deleted successfully"
+              })
             });
-        } else {
-          res.status(500).json({
-            message: "Error deleting user from the database",
-            error: err,
-          });
-        }
-      }).catch((err) => {
-        res.status(500).json({
-          error: err.message,
-          code: 500
+          }
+          else
+          {
+            res.status(200).send({
+              message: "User deleted successfully but not profile deleted"
+            });
+          }
+        }).catch((err)=>{
+          res.status(500).send({message: err.message});
         });
+    });
 
-      });
 
 
-    } else {
-      res.status(404).json({
-        message: "User not found",
-      });
-    }
+
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong test",

@@ -2,8 +2,9 @@ import { defaultApp, defaultAuth } from "../config/firebase-admin.js";
 import { createError } from "../utils/error.js";
 
 const verifyIdToken = async (req, res, next) => {
-  let token = req.header("Authorization").replace("Bearer ", "");
+
   try {
+    let token = req.header("Authorization").replace("Bearer ", "");
     if (!token) {
      
       res.status(401).send({
@@ -16,7 +17,8 @@ const verifyIdToken = async (req, res, next) => {
   } catch (error) {
    
     res.status(401).send({
-      message: "Invalid token"
+      message: "Invalid token" ,
+      error: error.message
     });
   }
 };

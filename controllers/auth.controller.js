@@ -5,7 +5,10 @@ const signupWithEmailAndPassword = async (req, res) => {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
-      throw createError(400, "Email or password is missing");
+    res.status(401).send({ 
+      email: "Email is required",
+      password: "Password is required",
+    });
     }
     await defaultAuth
       .createUser({
@@ -16,8 +19,21 @@ const signupWithEmailAndPassword = async (req, res) => {
         await User.findOne({ uid: userfirebase.uid })
           .then(async (user) => {
             if (!user) {
-              const user = new User({ uid: userfirebase.uid, email: email });
-              await user.save();
+              const user = new User({ uid: userfirebase.uid, email: email,photoURL:null,phoneNumber:null,displayName:null });
+            await user.save().then((result)=>{
+              res.status(200).send
+              ({
+                  status: 'success',
+                  message: 'User saved mongodb and Firebase successfully.',
+                  data:result
+              });
+            }).catch((err)=>{
+              res.status(400).send({
+                status: 400,
+                message: 'Save Firebase failed'+err.message
+             });
+             })
+            
             } else {
               res.status(409).send({
                 message: "User already exists",
@@ -25,7 +41,9 @@ const signupWithEmailAndPassword = async (req, res) => {
             }
           })
           .catch((err) => {
-            console.log(err);
+            res.status(500).send({
+              message: err.message,
+            });
           });
       })
       .catch((err) => {
