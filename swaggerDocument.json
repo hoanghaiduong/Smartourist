@@ -200,7 +200,7 @@
                 "summary":"Xác nhận reset password"
             }
         },
-        "/api/user/upload-avatar-user": {
+        "/api/user/uploadAvatar": {
             "post": {
                 "tags": [
                     "User"
@@ -214,8 +214,9 @@
                     "multipart/form-data"
                 ],
                 "parameters": [
+                  
                     {
-                        "name": "image",
+                        "name": "avatar",
                         "in": "formData",
                         "description": "File",
                         "required": true,

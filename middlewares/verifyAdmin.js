@@ -16,6 +16,7 @@ const verifyAdmin = async (req, res, next) => {
       res.status(403).send("You are not an admin");
     }
     req.user = decodedToken;
+    req.userId= decodedToken.uid;
     next();
   } catch (error) {
     res.status(500).send({

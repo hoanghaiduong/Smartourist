@@ -141,14 +141,13 @@ const deleteUser = async (req, res) => {
               })
             });
           }
-          else
-          {
+          else {
             res.status(200).send({
               message: "User deleted successfully but not profile deleted"
             });
           }
-        }).catch((err)=>{
-          res.status(500).send({message: err.message});
+        }).catch((err) => {
+          res.status(500).send({ message: err.message });
         });
     });
 
@@ -162,5 +161,33 @@ const deleteUser = async (req, res) => {
     });
   }
 };
+const uploadAvatar = async (req, res) => {
+  const userExists = req.user;
+  const uid = req.userId;
+  try {
+    if (req.file) {
+      console.log(req.file.firebaseUrl);
+      if (userExists) {
+        console.log(userExists);
+        await User.findOneAndUpdate({ uid: uid }, {
+          $set: {
+            photoURL: req.file.firebaseUrl
+          }
+        }, { new: true }).then((newPhoto) => {
+          res.status(200).send({
+            message: "Update image user successfully",
+            data: newPhoto
+          });
+        });
 
-export { createUser, getUser, getAllUsers, updateUser, deleteUser };
+      }
+
+    }
+
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+    });
+  }
+}
+export { createUser, getUser, getAllUsers, updateUser, deleteUser, uploadAvatar };
