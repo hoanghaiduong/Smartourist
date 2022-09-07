@@ -3,7 +3,8 @@ import { Profile, ProfileSchema } from "../models/Profile.js";
 import { User } from "../models/User.js";
 
 const createUser = async (req, res) => {
-  const { uid, email, phoneNumber, photoURL, displayName } = req.body;
+  const {uid}= req.query;
+  const {  email, phoneNumber, photoURL, displayName } = req.body;
 
   const user = new User({ uid, email, phoneNumber, photoURL, displayName });
   const findUser = await User.findOne({ uid });
@@ -25,36 +26,9 @@ const createUser = async (req, res) => {
         "Something went wrong while creating user || user already exists || check duplicate values",
       error: error.message,
     });
-    // console.log({
-    //   message:
-    //     "Something went wrong while creating user || user already exists || check duplicate values",
-    //   error: error.message,
-    // });
+    
   }
-  //  await user.save().then((resullt)=>{
-  //   res.status(200).json({
-  //     message: "User created successfully",
-  //     user: resullt
-  //   });
-  // }).catch(err=>{
-  //   res.status(500).json({
-  //     message: "Error creating user because of duplicate values",
-  //     error: err
-  //   });
-  // })
-
-  // if (!findUser && savedUser) {
-  //   res.status(201).json({
-  //     message: "User created successfully",
-  //     user: savedUser,
-  //   });
-  // } else if (findUser) {
-  //   const updateUser = await User.findByIdAndUpdate(
-  //     uid,
-  //     { $set: { email, phoneNumber, photoURL } },
-  //     { new: true }
-  //   );
-  // }
+ 
 };
 const getUser = async (req, res) => {
   try {
