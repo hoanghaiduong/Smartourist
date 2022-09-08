@@ -508,6 +508,180 @@
                     }
                 }
             }
+        },
+        "/api/maps/findLatLongLocation": {
+            "get": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "Tìm kiếm kinh độ vĩ độ của địa điểm",
+                "description": "Vui lòng nhập đầy đủ liên kết địa chỉ và api key",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Liên kết địa chỉ shared address",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "apiKey",
+                        "in": "query",
+                        "description": "Khoá API Key của google Maps cung cấp",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                    
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "USER NOT FOUND"
+                    }
+                }
+            }
+        },
+        "/api/maps/findAutoLocationByType": {
+            "get": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "Set admin",
+                "description": "Set admin",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "query",
+                        "description": "Mã uid của user",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "USER NOT FOUND"
+                    }
+                }
+            }
+        },
+        "/api/maps/findRefPlacesWithText": {
+            "get": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "Set admin",
+                "description": "Set admin",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "query",
+                        "description": "Mã uid của user",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "USER NOT FOUND"
+                    }
+                }
+            }
+        },
+        "/api/maps/findAutoLocation": {
+            "get": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "Set admin",
+                "description": "Set admin",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "query",
+                        "description": "Mã uid của user",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "USER NOT FOUND"
+                    }
+                }
+            }
+        },
+        "/api/maps/findImageLocation": {
+            "get": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "Set admin",
+                "description": "Set admin",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "query",
+                        "description": "Mã uid của user",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "USER NOT FOUND"
+                    }
+                }
+            }
         }
     },
     "definitions": {

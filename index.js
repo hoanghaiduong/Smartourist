@@ -5,6 +5,7 @@ import User_routes from "./routes/User_routes.js";
 import Profile_routes from "./routes/Profile_routes.js";
 import Auth_routes from "./routes/Auth_routes.js";
 import Admin_routes from "./routes/Admin_routes.js";
+import Map_routes from "./routes/Map_routes.js";
 import * as swagger from "swagger-ui-express";
 import swaggerDocument from "./swaggerDocument.json" assert { type: "json" };
 
@@ -21,4 +22,5 @@ app.use("/api/user", User_routes);
 app.use("/api/profile", Profile_routes);
 app.use("/api/auth", Auth_routes);
 app.use("/api/admin", Admin_routes);
+app.use("/api/maps",Map_routes);
 export { app};
