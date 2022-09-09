@@ -10,6 +10,7 @@ import * as swagger from "swagger-ui-express";
 import swaggerDocument from "./swaggerDocument.json" assert { type: "json" };
 
 const app = express();
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(bodyParser.json());                                     

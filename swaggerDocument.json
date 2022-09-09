@@ -551,87 +551,29 @@
                 }
             }
         },
-        "/api/maps/findAutoLocationByType": {
-            "get": {
-                "tags": [
-                    "Maps"
-                ],
-                "summary": "Set admin",
-                "description": "Set admin",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "uid",
-                        "in": "query",
-                        "description": "Mã uid của user",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully"
-                    },
-                    "400": {
-                        "description": "Invalid UID supplied"
-                    },
-                    "404": {
-                        "description": "USER NOT FOUND"
-                    }
-                }
-            }
-        },
-        "/api/maps/findRefPlacesWithText": {
-            "get": {
-                "tags": [
-                    "Maps"
-                ],
-                "summary": "Set admin",
-                "description": "Set admin",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "uid",
-                        "in": "query",
-                        "description": "Mã uid của user",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully"
-                    },
-                    "400": {
-                        "description": "Invalid UID supplied"
-                    },
-                    "404": {
-                        "description": "USER NOT FOUND"
-                    }
-                }
-            }
-        },
         "/api/maps/findAutoLocation": {
             "get": {
                 "tags": [
                     "Maps"
                 ],
-                "summary": "Set admin",
-                "description": "Set admin",
+                "summary": "Tìm địa chỉ với autocompleted",
+                "description": "Tìm địa chỉ nhanh chóng",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "uid",
+                        "name": "place",
                         "in": "query",
-                        "description": "Mã uid của user",
+                        "description": "Địa điểm bằng chữ (tìm kiếm gần đúng)",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "apiKey",
+                        "in": "query",
+                        "description": "Khoá API Key của google Maps cung cấp",
                         "required": true,
                         "type": "string",
                         "format": "string"
@@ -655,21 +597,138 @@
                 "tags": [
                     "Maps"
                 ],
-                "summary": "Set admin",
-                "description": "Set admin",
+                "summary": "Tìm kiếm hình ảnh của địa điểm bất kì",
+                "description": "Cần có hình ảnh mã hóa bằng code photoreference",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "uid",
+                        "name": "photoRef",
                         "in": "query",
-                        "description": "Mã uid của user",
+                        "description": "Mã ảnh của google maps cung cấp",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "apiKey",
+                        "in": "query",
+                        "description": "Khoá API Key của google Maps cung cấp",
                         "required": true,
                         "type": "string",
                         "format": "string"
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "USER NOT FOUND"
+                    }
+                }
+            }
+        },
+        "/api/maps/findRefPlacesWithText":{
+            "get": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "API chỉ đường",
+                "description": "Nhập đầy đủ tham số vào để tìm chỉ đường",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "place",
+                        "in": "query",
+                        "description": "Tìm địa chỉ chi tiết",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "apiKey",
+                        "in": "query",
+                        "description": "Khoá API Key của google Maps cung cấp",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "USER NOT FOUND"
+                    }
+                }
+            }
+        },
+        "/api/maps/getDirection": {
+            "get": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "API chỉ đường",
+                "description": "Nhập đầy đủ tham số vào để tìm chỉ đường",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "origin",
+                        "in": "query",
+                        "description": "Địa điểm bắt đầu",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "destination",
+                        "in": "query",
+                        "description": "Địa điểm Kết thúc",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }, 
+                    {
+                        "name": "apiKey",
+                        "in": "query",
+                        "description": "Khoá API Key của google Maps cung cấp",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }, 
+                      
+                    {
+                        "name": "mode",
+                        "in": "query",
+                        "description": "{ driving(lái xe (mặc định)) ,walking (Đi bộ) ,bicycling (xe đạp), transit (chuyển tuyến) }",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "avoid",
+                        "in": "query",
+                        "description": "avoid (tránh)={tolls (trạm thu phí),highways(đường cao tốc) ,ferries(phà)  }",
+                        "required": false,
+                        "type": "string",
+                        "format": "string"
+                    }
+                      
+                ],
+              
                 "responses": {
                     "200": {
                         "description": "Successfully"
@@ -792,121 +851,20 @@
                 }
             }
         },
-        "Calendar_res": {
+        "ColumnFilter": {
             "type": "object",
             "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "Mã uid của lịch",
-                    "example": "4b36c010-041f-11ed-8e27-e75f07ad574e"
-                },
-                "DayOftheweek": {
-                    "type": "integer",
-                    "description": "Thứ trong tuần",
-                    "example": 1
-                },
-                "sessionDay": {
-                    "type": "time",
-                    "description": "Thời gian đặt lịch",
-                    "example": "12:00:00"
-                },
-                "available": {
-                    "type": "boolean",
-                    "description": "Có thể đặt lịch",
-                    "example": true
-                },
-                "capacity": {
-                    "type": "integer",
-                    "description": "Tối đa người đặt lịch",
-                    "example": 30
-                },
-                "monthOfYear": {
-                    "type": "integer",
-                    "description": "Tháng",
-                    "example": 1
-                },
-                "year": {
-                    "type": "integer",
-                    "description": "Năm",
-                    "example": 2020
-                },
-                "dayOfMonth": {
-                    "type": "integer",
-                    "description": "Ngày",
-                    "example": 1
-                },
-                "createdAt": {
-                    "type": "string",
-                    "description": "Thời gian tạo"
-                },
-                "updatedAt": {
-                    "type": "string",
-                    "description": "Thời gian cập nhật"
-                }
-            }
-        },
-        "Calendar_req": {
-            "type": "object",
-            "properties": {
-                "DayOftheweek": {
-                    "type": "integer",
-                    "description": "Thứ trong tuần",
-                    "example": 1
-                },
-                "sessionDay": {
-                    "type": "time",
-                    "description": "Thời gian đặt lịch",
-                    "example": "12:00:00"
-                },
-                "available": {
-                    "type": "boolean",
-                    "description": "Có thể đặt lịch",
-                    "example": true
-                },
-                "capacity": {
-                    "type": "integer",
-                    "description": "Tối đa người đặt lịch",
-                    "example": 30
-                }
-            }
-        },
-        "user_reg_calen_res": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "Mã uid của lịch",
-                    "example": "4b36c010-041f-11ed-8e27-e75f07ad574e"
-                },
-                "DayOftheweek": {
-                    "type": "integer",
-                    "description": "Thứ trong tuần",
-                    "example": 1
-                },
-                "sessionDay": {
-                    "type": "time",
-                    "description": "Thời gian đặt lịch",
-                    "example": "12:00:00"
-                },
-                "available": {
-                    "type": "boolean",
-                    "description": "Có thể đặt lịch",
-                    "example": true
-                },
-                "capacity": {
-                    "type": "integer",
-                    "description": "Tối đa người đặt lịch",
-                    "example": 30
-                },
-                "createdAt": {
-                    "type": "string",
-                    "description": "Thời gian tạo"
-                },
-                "updatedAt": {
-                    "type": "string",
-                    "description": "Thời gian cập nhật"
-                }
-            }
+              "column": {
+                "type": "string",
+                "nullable": true
+              },
+              "value": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          
         },
         "edit_user_res": {
             "type": "object",
