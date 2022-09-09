@@ -173,7 +173,7 @@ const findGetRedirection=async (req, res) =>
     //avoid (tránh)={tolls (trạm thu phí),highways(đường cao tốc) ,ferries(phà)  }
     //waypoints các điểm 
     //&waypoints=via:San Francisco|via:Mountain View|...
-    const { destination,origin,apiKey ,mode,avoid,waypoints} = req.query;
+    const { destination,origin,apiKey ,mode,avoid} = req.query;
   
     if (!origin || !apiKey || !destination) {
         res.status(404).send({
@@ -183,20 +183,14 @@ const findGetRedirection=async (req, res) =>
         })
     }
     try {
-        axios.get(encodeURI(`https://maps.googleapis.com/maps/api/directions/json
-        ?destination=${destination}
-        &mode=${mode}
-        &origin=${origin}
-        &avoid=${avoid}
-        &waypoints=via%3A${waypoints}
-        &key=${apiKey}`)).then((response) => {
+        axios.get(encodeURI(`https://maps.googleapis.com/maps/api/directions/json?destination=${destination}&mode=${mode}&origin=${origin}&avoid=${avoid}&key=${apiKey}`)).then((response) => {
             res.status(200).send({
                 statusCode:response.status,
                 data: response.data
             })
         }).catch((err) => {
             res.status(400).json({
-                data: err.message
+                error: err.message
               });
         })
     } catch (error) {
