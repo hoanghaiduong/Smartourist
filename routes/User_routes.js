@@ -8,7 +8,7 @@ import { verifyIdToken } from "../middlewares/verifyToken.js";
 import { Mluter, uploadImageFirestore } from "../service/HandleUploadService.js";
 const router = express.Router();
 router.get('/getUser', getUser);
-router.get('/getAllUsers', verifyAdmin, getAllUsers);
+router.get('/getAllUsers', getAllUsers);
 //upload image user
 router.post('/uploadAvatar', [Mluter.single('avatar'),verifyIdToken,uploadImageFirestore],uploadAvatar);
 router.post("/createUser", createUser);
