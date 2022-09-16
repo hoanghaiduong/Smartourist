@@ -96,11 +96,7 @@ const signinWithEmailAndPassword = async (req, res) => {
             },
           });
         })
-        .catch(async (err) => {
-          res.status(500).send({
-            message: "Email or Password is incorrect",
-          });
-        });
+        
     }
   } catch (error) {
     res.status(500).send({
