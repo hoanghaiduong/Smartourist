@@ -242,6 +242,7 @@
                 }
             }
         },
+
         
         "/api/admin/setAdmin": {
             "post": {
@@ -741,6 +742,49 @@
                     }
                 }
             }
+        },
+        "/api/profile/getProfile":{
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Lấy ra profile của 1 user",
+                "description": "Trả về 1  thông tin  hồ sơ của người dùng",
+                "operationId": "getProfileByUID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "query",
+                        "description": "Mã uid của user",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "PROFILE NOT FOUND"
+                    }
+                }
+            }
+        },
+        "/api/profile/createProfile":{
+
+        },
+        "/api/profile/updateProfile":{
+
+        },
+        "/api/profile/deleteProfile":{
+
         }
     },
     "definitions": {

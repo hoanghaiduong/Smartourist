@@ -5,7 +5,33 @@ import {User, UserSchema} from "./User.js";
 const { Schema } = mongoose;
 //console.log(Schema.Types.ObjectId);
 const ProfileSchema = new Schema({
- 
+  first_name:{
+    type: String,
+    required: false,
+    nullable: true,
+  },
+  last_name:{
+    type: String,
+    required: false,
+    nullable: true,
+  },
+  state:{
+    type: String,
+    required: false,
+    nullable: true,
+  },
+  zip_code:{
+    type: String,
+    required: false,
+    nullable: true,
+  },
+  country:{
+    type: String,
+    required: false,
+    nullable: true,
+  },
+
+
   dateOfBirth: {
     type: Date,
     required: false,

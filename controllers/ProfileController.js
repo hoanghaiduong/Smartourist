@@ -27,6 +27,11 @@ const createProfile = async (req, res) => {
           address: req.body.address,
           albums: req.body.albums,
           sex: req.body.sex,
+          first_name:req.body.first_name,
+          last_name:req.body.last_name,
+          state: req.body.state,
+          country: req.body.country,
+          zip_code: req.body.zip_code,
         });
 
         await profile
@@ -75,6 +80,11 @@ const updateProfile = async (req, res) => {
         albums: req.body.albums,
         dateOfBirth: req.body.dateOfBirth,
         sex: req.body.sex,
+        first_name:req.body.first_name,
+        last_name:req.body.last_name,
+        state: req.body.state,
+        country: req.body.country,
+        zip_code: req.body.zip_code,
       },
 
     }, { new: true }).populate("user", "-_id -__v").select("-__v");
