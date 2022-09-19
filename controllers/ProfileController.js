@@ -27,8 +27,8 @@ const createProfile = async (req, res) => {
           address: req.body.address,
           albums: req.body.albums,
           sex: req.body.sex,
-          first_name:req.body.first_name,
-          last_name:req.body.last_name,
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
           state: req.body.state,
           country: req.body.country,
           zip_code: req.body.zip_code,
@@ -64,11 +64,19 @@ const createProfile = async (req, res) => {
   }
 };
 const getProfileUser = async (req, res) => {
-  const { uid } = req.query;
-  const profile = await Profile.findOne({ user: uid }).populate("user", "-_id -__v").select("-__v");;
-  res.status(200).json({
-    profile: profile,
-  });
+  const { _id } = req.query;
+  try {
+
+    const profile = await Profile.findOne({ user: _id }).populate("user", "-_id -__v").select("-__v");
+    res.status(200).json({
+      profile: profile,
+    });
+  } catch (error) {
+    res.status(400).json({
+      code: 400,
+      message: error.message
+    });
+  }
 
 };
 const updateProfile = async (req, res) => {
@@ -80,8 +88,8 @@ const updateProfile = async (req, res) => {
         albums: req.body.albums,
         dateOfBirth: req.body.dateOfBirth,
         sex: req.body.sex,
-        first_name:req.body.first_name,
-        last_name:req.body.last_name,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
         state: req.body.state,
         country: req.body.country,
         zip_code: req.body.zip_code,
