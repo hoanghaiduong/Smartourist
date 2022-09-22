@@ -32,6 +32,7 @@ const createProfile = async (req, res) => {
           state: req.body.state,
           country: req.body.country,
           zip_code: req.body.zip_code,
+          color: req.body.color,
         });
 
         await profile
@@ -93,6 +94,7 @@ const updateProfile = async (req, res) => {
         state: req.body.state,
         country: req.body.country,
         zip_code: req.body.zip_code,
+        color: req.body.color,
       },
 
     }, { new: true }).populate("user", "-_id -__v").select("-__v");
@@ -145,3 +147,4 @@ const deleteProfile = async (req, res) => {
 }
 
 export { createProfile, getProfileUser, updateProfile, deleteProfile };
+s

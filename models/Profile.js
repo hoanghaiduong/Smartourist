@@ -61,6 +61,11 @@ const ProfileSchema = new Schema({
     required: false,
     unique: true,
   },
+  color:{
+    type: String,
+    required: false,
+    nullable: true,
+  }
   // userEmbedding:UserSchema,
   // userId:{
   //   type: String,
