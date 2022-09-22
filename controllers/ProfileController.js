@@ -147,4 +147,3 @@ const deleteProfile = async (req, res) => {
 }
 
 export { createProfile, getProfileUser, updateProfile, deleteProfile };
-s
