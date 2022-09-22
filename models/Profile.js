@@ -45,7 +45,7 @@ const ProfileSchema = new Schema({
     },
   ],
   sex: {
-    type:Number,
+    type:String,
     required: false,
     nullable: true,
   },
