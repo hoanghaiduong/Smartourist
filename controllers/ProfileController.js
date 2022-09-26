@@ -4,59 +4,53 @@ import { User } from "../models/User.js";
 
 
 const createProfile = async (req, res) => {
-  const { _id } = req.userId;
-  try {
-    if (!_id) {
-      res.status(400).send({
-        message: "UID is required",
-        code: 400,
-      });
-    } else {
-      const user = await User.findOne({
-        _id: _id
-      });
-      if (!user) {
-        res.status(404).send({
-          message: "User not found",
-          code: 404,
-        });
-      } else {
-        let profile = new Profile({
-          dateOfBirth: req.body.dateOfBirth,
-          user: _id,
-          address: req.body.address,
-          albums: req.body.albums,
-          sex: req.body.sex,
-          first_name: req.body.first_name,
-          last_name: req.body.last_name,
-          state: req.body.state,
-          country: req.body.country,
-          zip_code: req.body.zip_code,
-          color: req.body.color,
-        });
 
-        await profile
-          .save()
-          .then((profile) => {
-            res.status(200).json({
-              message: "Profile created",
-              profile: profile,
-            });
-          })
-          .catch((err) => {
-            if (err.keyPattern) {
-              res.status(500).json({
-                error: err.keyPattern,
-                message: "User has already been",
-              });
-            } else {
-              res.status(500).json({
-                error: err,
-              });
-            }
+
+  try {
+    const uid = req.userId;
+
+    await User.findOne({
+      uid: uid,
+    }).then(async (result) => {
+      const user_id = result._id;
+
+      let profile = new Profile({
+        dateOfBirth: req.body.dateOfBirth,
+        user: user_id,
+        address: req.body.address,
+        albums: req.body.albums,
+        sex: req.body.sex,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        state: req.body.state,
+        country: req.body.country,
+        zip_code: req.body.zip_code,
+        color: req.body.color,
+      });
+
+      await profile
+        .save()
+        .then((profile) => {
+          res.status(200).json({
+            message: "Profile created",
+            profile: profile,
           });
-      }
-    }
+        })
+        .catch((err) => {
+          if (err.keyPattern) {
+            res.status(500).json({
+              error: err.keyPattern,
+              message: "User has already been",
+            });
+          } else {
+            res.status(500).json({
+              error: err,
+            });
+          }
+        });
+    })
+
+
   } catch (error) {
     res.status(404).send({
       message: "User not found" + error.message,
@@ -65,7 +59,7 @@ const createProfile = async (req, res) => {
   }
 };
 const getProfileUser = async (req, res) => {
-  const { _id } = req.userId;
+  const _id = req.userId;
   try {
 
     const profile = await Profile.findOne({ user: _id }).populate("user", "-_id -__v").select("-__v");
@@ -81,7 +75,7 @@ const getProfileUser = async (req, res) => {
 
 };
 const updateProfile = async (req, res) => {
-  const { uid } = req.userId;
+  const  uid = req.userId;
   try {
     const profile = await Profile.findOneAndUpdate({ user: uid }, {
       $set: {

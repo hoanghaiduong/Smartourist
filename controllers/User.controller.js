@@ -3,7 +3,7 @@ import { Profile, ProfileSchema } from "../models/Profile.js";
 import { User } from "../models/User.js";
 
 const createUser = async (req, res) => {
-  console.log("user",req.user);
+ 
   const userData=req.user;
   // const { uid } = req.query;
   // const { email, phoneNumber, photoURL, displayName } = req.body;
@@ -41,7 +41,7 @@ const createUser = async (req, res) => {
 };
 const getUser = async (req, res) => {
   try {
-    const { uid } = req.userId;
+    const  uid  = req.userId;
     const user = await User.findOne({ uid });
     if (user) {
       res.status(200).json({
@@ -82,7 +82,7 @@ const getAllUsers = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { uid } = req.query;
+    const  uid  = req.userId;
     const { email, phoneNumber, photoURL, displayName } = req.body;
     const user = await User.findOne({ uid });
     if (user) {

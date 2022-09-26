@@ -136,16 +136,7 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [
-                    {
-                        "name": "uid",
-                        "in": "query",
-                        "description": "Mã uid của user",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
+               
                 "responses": {
                     "200": {
                         "description": "Successfully"
@@ -340,14 +331,7 @@
                     "application/json"
                 ],
                 "parameters": [
-                    {
-                        "name": "uid",
-                        "in": "query",
-                        "description": "Mã uid của user",
-                        "required": true,
-                        "type": "string",
-                        "format": "string"
-                    },
+                  
                     {
                         "name": "body",
                         "in": "body",

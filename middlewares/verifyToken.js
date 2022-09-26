@@ -11,8 +11,8 @@ const verifyIdToken = async (req, res, next) => {
       });
     }
     const decodedToken = await defaultAuth.verifyIdToken(token);
-    req.user    = decodedToken;
-    req.userId  = decodedToken.uid;
+    req.user = decodedToken;
+    req.userId = decodedToken.uid;
     next();
   } catch (error) {
 
