@@ -11,15 +11,15 @@ const verifyIdToken = async (req, res, next) => {
       });
     }
     const decodedToken = await defaultAuth.verifyIdToken(token);
-    req.user = decodedToken;
-    req.userId=decodedToken.uid;
+    req.user    = decodedToken;
+    req.userId  = decodedToken.uid;
     next();
   } catch (error) {
-   
+
     res.status(401).send({
-      message: "Invalid token" ,
+      message: "Invalid token",
       error: error.message
     });
   }
 };
-export  {verifyIdToken};
+export { verifyIdToken };

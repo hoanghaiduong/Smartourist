@@ -86,24 +86,7 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [
-                    {
-                        "name": "uid",
-                        "in": "query",
-                        "description": "Mã uid của user",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "User object that needs to be added to the store",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/Create_user"
-                        }
-                    }
-                ],
+                
                 "responses": {
                     "200": {
                         "description": "User added to the store",
@@ -778,13 +761,10 @@
             }
         },
         "/api/profile/createProfile":{
-
         },
         "/api/profile/updateProfile":{
-
         },
         "/api/profile/deleteProfile":{
-
         }
     },
     "definitions": {

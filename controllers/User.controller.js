@@ -3,10 +3,19 @@ import { Profile, ProfileSchema } from "../models/Profile.js";
 import { User } from "../models/User.js";
 
 const createUser = async (req, res) => {
-  const { uid } = req.query;
-  const { email, phoneNumber, photoURL, displayName } = req.body;
-
-  const user = new User({ uid, email, phoneNumber, photoURL, displayName });
+  console.log("user",req.user);
+  const userData=req.user;
+  // const { uid } = req.query;
+  // const { email, phoneNumber, photoURL, displayName } = req.body;
+  const {uid,name,email,picture}=userData;
+  //console.log(uid,name,email,picture);
+ 
+  const user = new User({
+    uid:uid,
+    displayName:name,
+    photoURL:picture,
+    email:email,
+  });
   const findUser = await User.findOne({ uid });
   try {
     const savedUser = await user.save();
@@ -32,7 +41,7 @@ const createUser = async (req, res) => {
 };
 const getUser = async (req, res) => {
   try {
-    const { uid } = req.query;
+    const { uid } = req.userId;
     const user = await User.findOne({ uid });
     if (user) {
       res.status(200).json({
@@ -147,9 +156,10 @@ const deleteUser = async (req, res) => {
             });
           }
         }).catch((err) => {
-          res.status(200).send({ 
-            
-            status:200,message: "Delete User from mongodb success" });
+          res.status(200).send({
+
+            status: 200, message: "Delete User from mongodb success"
+          });
         });
     });
 

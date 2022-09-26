@@ -7,13 +7,13 @@ import verifyAdmin from "../middlewares/verifyAdmin.js";
 import { verifyIdToken } from "../middlewares/verifyToken.js";
 import { Mluter, uploadImageFirestore } from "../service/HandleUploadService.js";
 const router = express.Router();
-router.get('/getUser', getUser);
-router.get('/getAllUsers', getAllUsers);
+router.get('/getUser', verifyIdToken, getUser);
+router.get('/getAllUsers', verifyAdmin, getAllUsers);
 //upload image user
-router.post('/uploadAvatar', [Mluter.single('avatar'),verifyIdToken,uploadImageFirestore],uploadAvatar);
-router.post("/createUser", createUser);
+router.post('/uploadAvatar', [Mluter.single('avatar'), verifyIdToken, uploadImageFirestore], uploadAvatar);
+router.post("/createUser",verifyIdToken, createUser);
 router.put("/updateUser", verifyIdToken, updateUser);
-router.delete("/deleteUser",checkUserExists,checkProfile, deleteUser);
+router.delete("/deleteUser", checkUserExists, checkProfile, deleteUser);
 
 //code for user
 router.post("/send", sendPushNotification);
