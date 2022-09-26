@@ -806,6 +806,29 @@
             }
         },
         "/api/profile/deleteProfile":{
+            "delete": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Xóa profile của 1 user",
+                "description": "Xóa 1  thông tin  hồ sơ của người dùng",
+                "operationId": "Delete Profile User",
+                "produces": [
+                    "application/json"
+                ],
+             
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "PROFILE NOT FOUND"
+                    }
+                }
+            }
         }
     },
     "definitions": {

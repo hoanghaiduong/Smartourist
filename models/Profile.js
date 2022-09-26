@@ -31,7 +31,7 @@ const ProfileSchema = new Schema({
     nullable: true,
   },
   dateOfBirth: {
-    type: Date,
+    type: String,
     required: false,
     nullable: true,
   },
