@@ -737,14 +737,40 @@
                 "produces": [
                     "application/json"
                 ],
+              
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "PROFILE NOT FOUND"
+                    }
+                }
+            }
+        },
+        "/api/profile/createProfile":{
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Tạo profile của 1 user",
+                "description": "Tạo 1  thông tin  hồ sơ của người dùng",
+                "operationId": "create Profile User",
+                "produces": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
-                        "name": "uid",
-                        "in": "query",
-                        "description": "Mã uid của user",
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create Profile",
                         "required": true,
-                        "type": "string",
-                        "format": "string"
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
                     }
                 ],
                 "responses": {
@@ -760,9 +786,40 @@
                 }
             }
         },
-        "/api/profile/createProfile":{
-        },
         "/api/profile/updateProfile":{
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Tạo profile của 1 user",
+                "description": "Tạo 1  thông tin  hồ sơ của người dùng",
+                "operationId": "create Profile User",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Create Profile",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully"
+                    },
+                    "400": {
+                        "description": "Invalid UID supplied"
+                    },
+                    "404": {
+                        "description": "PROFILE NOT FOUND"
+                    }
+                }
+            }
         },
         "/api/profile/deleteProfile":{
         }
@@ -890,31 +947,61 @@
             "additionalProperties": false
           
         },
-        "edit_user_res": {
+        "Profile": {
             "type": "object",
             "properties": {
-                "email": {
+                "dateOfBirth": {
                     "type": "string",
-                    "description": "Email Người dùng có thể không cần thay đổi.",
-                    "example": "email@gmail.com"
+                    "description": "Ngày tháng năm sinh người dùng.",
+                    "example": "new Date(2002,12,11)"
                 },
-                "password": {
+                "user": {
                     "type": "string",
-                    "description": "Mật khẩu Người dùng có thể không cần thay đổi.Đổi phải từ 6 kí tự trở lên",
-                    "example": "123456"
+                    "description": "Object Id người dùng",
+                    "example": "ObjectId"
                 },
-                "phoneNumber": {
-                    "type": "tel",
-                    "example": "+84123456789"
-                },
-                "displayName": {
+                "address": {
                     "type": "string",
-                    "example": "example@gmail.com"
+                    "example": "93/34B kp5"
                 },
-                "photoURL": {
+                "albums": {
                     "type": "string",
-                    "description": "Đường dẫn đến ảnh đại diện của người dùng.",
-                    "example": "https://example.com/photo.jpg"
+                    "example": "ALBUMS HÌNH Anh"
+                },
+                "sex": {
+                    "type": "string",
+                    "description": "Giới tính.",
+                    "example": "Bê Đê"
+                },
+                "first_name": {
+                    "type": "string",
+                    "description": "Họ và tên đệm.",
+                    "example": "Hoàng Hải"
+                },
+                "last_name": {
+                    "type": "string",
+                    "description": "Tên.",
+                    "example": "Dương"
+                },
+                "state": {
+                    "type": "string",
+                    "description": " Mã Nhà nước.",
+                    "example": "71999"
+                },
+                "country": {
+                    "type": "string",
+                    "description": "Quốc Gia",
+                    "example": "Việt Nam"
+                },
+                "zip_code": {
+                    "type": "string",
+                    "description": "Mã bưu điện",
+                    "example": "81000"
+                },
+                "color": {
+                    "type": "string",
+                    "description": "Màu Người Dùng.",
+                    "example": "orange"
                 }
             }
         }

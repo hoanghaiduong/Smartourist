@@ -5,10 +5,10 @@ import { createUser } from "../controllers/User.controller.js";
 import { verifyIdToken } from "../middlewares/verifyToken.js";
 const router = express.Router();
 
-router.get("/getProfile", getProfileUser);
-router.post("/createProfile", createProfile);
-router.put("/updateProfile", updateProfile);
-router.delete("/deleteProfile",deleteProfile);
+router.get("/getProfile",verifyIdToken, getProfileUser);
+router.post("/createProfile",verifyIdToken, createProfile);
+router.put("/updateProfile",verifyIdToken, updateProfile);
+router.delete("/deleteProfile",verifyIdToken,deleteProfile);
 //code for user
 router.post("/send",sendPushNotification);
 export default router;

@@ -4,16 +4,16 @@ import { User } from "../models/User.js";
 
 
 const createProfile = async (req, res) => {
-  const { uid } = req.query;
+  const { _id } = req.userId;
   try {
-    if (!uid) {
+    if (!_id) {
       res.status(400).send({
         message: "UID is required",
         code: 400,
       });
     } else {
       const user = await User.findOne({
-        _id: uid
+        _id: _id
       });
       if (!user) {
         res.status(404).send({
@@ -23,7 +23,7 @@ const createProfile = async (req, res) => {
       } else {
         let profile = new Profile({
           dateOfBirth: req.body.dateOfBirth,
-          user: uid,
+          user: _id,
           address: req.body.address,
           albums: req.body.albums,
           sex: req.body.sex,
@@ -65,7 +65,7 @@ const createProfile = async (req, res) => {
   }
 };
 const getProfileUser = async (req, res) => {
-  const { _id } = req.query;
+  const { _id } = req.userId;
   try {
 
     const profile = await Profile.findOne({ user: _id }).populate("user", "-_id -__v").select("-__v");
@@ -81,7 +81,7 @@ const getProfileUser = async (req, res) => {
 
 };
 const updateProfile = async (req, res) => {
-  const { uid } = req.query;
+  const { uid } = req.userId;
   try {
     const profile = await Profile.findOneAndUpdate({ user: uid }, {
       $set: {
@@ -120,7 +120,7 @@ const updateProfile = async (req, res) => {
   }
 }
 const deleteProfile = async (req, res) => {
-  const { uid } = req.query;
+  const { uid } = req.userId;
   try {
     await Profile.findOneAndDelete(uid).then((profile) => {
       res.status(200).json({

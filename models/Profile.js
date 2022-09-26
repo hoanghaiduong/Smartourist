@@ -1,31 +1,31 @@
 import mongoose from "mongoose";
 import crypto from "crypto";
-import {User, UserSchema} from "./User.js";
+import { User, UserSchema } from "./User.js";
 
 const { Schema } = mongoose;
 //console.log(Schema.Types.ObjectId);
 const ProfileSchema = new Schema({
-  first_name:{
+  first_name: {
     type: String,
     required: false,
     nullable: true,
   },
-  last_name:{
+  last_name: {
     type: String,
     required: false,
     nullable: true,
   },
-  state:{
+  state: {
     type: String,
     required: false,
     nullable: true,
   },
-  zip_code:{
+  zip_code: {
     type: String,
     required: false,
     nullable: true,
   },
-  country:{
+  country: {
     type: String,
     required: false,
     nullable: true,
@@ -43,7 +43,7 @@ const ProfileSchema = new Schema({
     },
   ],
   sex: {
-    type:String,
+    type: String,
     required: false,
     nullable: true,
   },
@@ -52,14 +52,14 @@ const ProfileSchema = new Schema({
     required: false,
     nullable: true,
   },
-  user:{
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     nullable: true,
     required: false,
     unique: true,
   },
-  color:{
+  color: {
     type: String,
     required: false,
     nullable: true,
@@ -78,6 +78,6 @@ const ProfileSchema = new Schema({
 const Profile = mongoose.model("Profile", ProfileSchema);
 
 export {
-    Profile,
-    ProfileSchema,
+  Profile,
+  ProfileSchema,
 }
