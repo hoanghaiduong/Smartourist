@@ -62,7 +62,7 @@ const getUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find().then((user) => {
-      if (users) {
+      if (user) {
         res.status(200).json({
           message: "Get All users successfully",
           users: users,
