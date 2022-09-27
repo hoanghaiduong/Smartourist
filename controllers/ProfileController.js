@@ -100,13 +100,24 @@ const updateProfile = async (req, res) => {
           color: req.body.color,
         },
 
-      }, { new: true }).populate("user", "-_id -__v").select("-__v").then(() => {
+      }, { new: true }).populate("user", "-_id -__v").select("-__v");
+      if(profile)
+      {
         res.status(200).json({
           message: "Profile updated",
           code: 200,
           profile: profile,
         });
-      });
+      }
+      else
+      {
+        res.status(400).json({
+          message: "Update profile failed",
+          status: 400,
+        });
+      }
+     
+
     });
 
 
