@@ -65,7 +65,7 @@ const getAllUsers = async (req, res) => {
       if (user) {
         res.status(200).json({
           message: "Get All users successfully",
-          users: users,
+          users: user,
         });
       }
     });
