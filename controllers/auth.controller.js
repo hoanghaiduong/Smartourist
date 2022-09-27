@@ -103,7 +103,7 @@ const signinWithEmailAndPassword = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message: "Something went wrong",
-      error: error.message,
+      error: error,
     });
   }
 };

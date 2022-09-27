@@ -61,17 +61,15 @@ const getUser = async (req, res) => {
 };
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
-    if (users) {
-      res.status(200).json({
-        message: "Get All users successfully",
-        users: users,
-      });
-    } else {
-      res.status(404).json({
-        message: "No users found",
-      });
-    }
+    const users = await User.find().then((user) => {
+      if (users) {
+        res.status(200).json({
+          message: "Get All users successfully",
+          users: users,
+        });
+      }
+    });
+
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong",
